@@ -1,82 +1,71 @@
-# Lightweight React Template for KAVIA
+# Notes Frontend (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A lightweight React app that provides a clean UI for creating, editing, listing, and deleting notes. It talks to the FastAPI backend running at http://localhost:3001.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Full CRUD via backend:
+  - List notes (GET /notes)
+  - Create note (POST /notes)
+  - Get note (GET /notes/{id})
+  - Update note (PUT /notes/{id})
+  - Delete note (DELETE /notes/{id})
+- Clean, responsive UI with accessible components
+- Minimal dependencies for fast local development
+
+## Prerequisites
+
+- Backend running on http://localhost:3001
+  - See ../notes_backend/README.md for setup
+  - Ensure CORS allows http://localhost:3000 (already configured by default)
 
 ## Getting Started
 
-In the project directory, you can run:
+1) Install dependencies:
+- npm install
 
-### `npm start`
+2) Start the frontend:
+- npm start
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Then open http://localhost:3000 in your browser.
 
-### `npm test`
+## Configuration
 
-Launches the test runner in interactive watch mode.
+- The API base URL is set in `src/config.js`:
+  - export const BASE_URL = "http://localhost:3001";
+- You may override via environment variables as needed (for future extension):
+  - REACT_APP_API_BASE
+  - REACT_APP_BACKEND_URL
+  - REACT_APP_FRONTEND_URL
+  - REACT_APP_PORT (defaults to 3000 when using CRA)
+  - Other REACT_APP_* flags listed in container environment are currently not required for basic CRUD.
 
-### `npm run build`
+Note: When changing env vars, restart the dev server to apply changes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## End-to-End Verification (Manual)
+
+- Create:
+  - Click "+ New" or "+ New Note" and enter a title and optional content
+  - Click "Create" → note should appear in the list
+- Read/List:
+  - The list at the left should show all notes; selecting a note loads it
+- Update:
+  - Change title/content and click "Save" → list reflects updated title
+- Delete:
+  - Click "Delete" in the editor and confirm → note disappears from list
+- Error handling:
+  - Network/validation errors appear as a dismissible banner in the editor
+- CORS:
+  - Ensure no CORS errors in browser devtools; requests go to http://localhost:3001
+
+## Scripts
+
+- npm start → Dev server on http://localhost:3000
+- npm test → Test runner
+- npm run build → Production build to `build` folder
 
 ## Customization
 
-### Colors
+Colors and component styles live in `src/App.css`. Components are in `src/components`, hooks in `src/hooks`.
 
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For more on React, see https://reactjs.org/.
